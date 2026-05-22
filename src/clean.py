@@ -16,7 +16,9 @@ def main():
     df = df[df['event_type'].isin(VALID_EVENTS)]
 
     # 3. Drop non-positive duration_seconds
+    df['duration_seconds'] = pd.to_numeric(df['duration_seconds'])
     df = df[df['duration_seconds'] > 0]
+    df['duration_seconds'] = df['duration_seconds'].astype(int)
 
     # 4. Normalize timestamp to ISO 8601 (YYYY-MM-DDTHH:MM:SS)
     # Added format='mixed' to handle the raw data format safely
